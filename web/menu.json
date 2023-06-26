@@ -1,0 +1,18 @@
+[
+    {
+        "path": "/",
+        "label": "Dashboard"
+    },
+    {
+        "path": "/categorias",
+        "label": "Categorias"
+    },
+    {
+        "path": "/usuarios",
+        "label": "Usuários"
+    },
+    {
+        "path": "/perfil",
+        "label": "Perfil"
+    }
+]

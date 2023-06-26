@@ -1,0 +1,129 @@
+{
+    "login": {
+        "token": "sdfhuiofhsaiuf",
+        "user": {
+            "name": "Lucas Kaiut",
+            "email": "lucas.kaiut@gmail.com",
+            "created_at": "2023-06-16 00:17:45",
+            "avatar": "https://avatars.githubusercontent.com/u/24759223?s=400&u=6dad150e259c654fcb055a03039277c87eecef47&v=4"
+        }
+    },
+    "me": {
+        "user": {
+            "name": "Lucas Kaiut",
+            "email": "lucas.kaiut@gmail.com",
+            "created_at": "2023-06-16 00:17:45",
+            "avatar": "https://avatars.githubusercontent.com/u/24759223?s=400&u=6dad150e259c654fcb055a03039277c87eecef47&v=4"
+        }
+    },
+    "categories": {
+        "data": [
+            {
+                "id": 1,
+                "name": "Vendas",
+                "type": "in",
+                "created_at": "2023-06-16 18:15:34"
+            },
+            {
+                "id": 2,
+                "name": "Materiais",
+                "type": "out",
+                "created_at": "2023-06-16 18:15:34"
+            },
+            {
+                "id": 3,
+                "name": "Imposto",
+                "type": "out",
+                "created_at": "2023-06-16 18:15:34"
+            }
+        ],
+        "meta":{
+            "current_page": 1,
+            "from": 1,
+            "last_page": 3,
+            "path": "http://example.com/users",
+            "per_page": 1,
+            "to": 1,
+            "total": 3
+        }
+    },
+    "users": {
+        "data": [
+            {
+                "id": 1,
+                "name": "Lucas Kaiut",
+                "email": "lucas.kaiut@gmail.com",
+                "created_at": "2023-06-16 00:17:45",
+                "avatar": "https://avatars.githubusercontent.com/u/24759223?s=400&u=6dad150e259c654fcb055a03039277c87eecef47&v=4"
+            },
+            {
+                "id": 2,
+                "name": "Jhulli Silva",
+                "email": "jhullisilva2@gmail.com",
+                "created_at": "2023-06-21 12:40:34",
+                "avatar": "https://avatars.githubusercontent.com/u/24759223?s=400&u=6dad150e259c654fcb055a03039277c87eecef47&v=4"
+            }
+        ],
+        "meta":{
+            "current_page": 1,
+            "from": 1,
+            "last_page": 2,
+            "path": "http://example.com/users",
+            "per_page": 1,
+            "to": 1,
+            "total": 2
+        }
+    },
+    "bills": {
+        "data": [
+            {
+                "id": 1,
+                "description": "Pedidos",
+                "category_id": 1,
+                "category": {
+                    "id": 1,
+                    "name": "Vendas",
+                    "type": "in",
+                    "created_at": "2023-06-16 18:15:34"
+                },
+                "amount": 49.97,
+                "date": "2023-06-21"
+            },
+            {
+                "id": 2,
+                "description": "Pedidos",
+                "category_id": 1,
+                "category": {
+                    "id": 1,
+                    "name": "Vendas",
+                    "type": "in",
+                    "created_at": "2023-06-16 18:15:34"
+                },
+                "amount": 54.4,
+                "date": "2023-06-21"
+            },
+            {
+                "id": 3,
+                "description": "DAS",
+                "category_id": 3,
+                "category": {
+                    "id": 3,
+                    "name": "Imposto",
+                    "type": "out",
+                    "created_at": "2023-06-16 18:15:34"
+                },
+                "amount": 1003.94,
+                "date": "2023-06-25"
+            }
+        ],
+        "meta": {
+            "current_page": 1,
+            "from": 1,
+            "last_page": 3,
+            "path": "http://example.com/users",
+            "per_page": 1,
+            "to": 1,
+            "total": 3
+        }
+    }
+}
