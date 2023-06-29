@@ -14,6 +14,7 @@ export function Dashboard() {
   const initialBillForm = {
     description: "",
     category_id: "",
+    amount: "",
   };
   const [bills, setBills] = useState([]);
   const [pagination, setPagination] = useState({});
@@ -79,7 +80,7 @@ export function Dashboard() {
   };
 
   const handleSubmit = () => {
-    if (!billForm?.name || !billForm?.type) {
+    if (!billForm?.description || !billForm?.category_id) {
       toast.error("Informe o nome e tipo da categoria", {
         position: "top-center",
         autoClose: 3000,
@@ -91,9 +92,17 @@ export function Dashboard() {
       return;
     }
 
-    const method = editingBill ? "put" : "post";
+    if (billForm.id !== undefined) {
+      console.log('updating', {billForm});
+      //put
+    } else {
+      // post
+      console.log('creating', {billForm});
+    }
 
     toggleDrawer();
+
+    return;
   };
 
   useEffect(() => {
@@ -153,6 +162,7 @@ export function Dashboard() {
           <div className="flex flex-col justify-center mt-5 gap-4">
             <Form
               billForm={billForm}
+              isDrawerOpen={isDrawerOpen}
               closeDrawer={closeDrawer}
               handleSubmit={handleSubmit}
               setFieldValue={setFieldValue}
