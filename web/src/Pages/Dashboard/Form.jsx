@@ -12,39 +12,17 @@ export const Form = ({
 }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [maskedAmount, setMaskedAmount] = useState("");
-  const { reverseString } = useFunctions();
+  const { maskAmountValue } = useFunctions();
 
-  const handleAmountChange = (value) => {
-    let maskedValue = reverseString(value.toString().replace(/[^\d]+/gi, ""));
-
-    const mask = reverseString("###.###.###.###.###,##");
-
-    let result = "";
-
-    for (var x = 0, y = 0; x < mask.length && y < maskedValue.length; ) {
-      if (mask.charAt(x) != "#") {
-        result += mask.charAt(x);
-        x++;
-      } else {
-        result += maskedValue.charAt(y);
-        y++;
-        x++;
-      }
-    }
-
-    result = reverseString(result);
-
-    setFieldValue(
-      "amount",
-      parseFloat(result.replace(".", "").replace(",", "."))
-    );
-
-    setMaskedAmount(`R$ ${result}`);
-  };
+  const handleAmountChange = (rawValue) => {
+    const { value, maskedValue } = maskAmountValue(rawValue);
+    setFieldValue("amount", value);
+    setMaskedAmount(maskedValue);
+  }
 
   useEffect(() => {
     if (billForm && billForm.amount !== "") {
-      handleAmountChange(billForm?.amount?.toFixed(2) ?? "");
+      handleAmountChange(billForm?.amount?.toFixed(2) ?? "")
     } else {
       setMaskedAmount("");
     }

@@ -10,8 +10,10 @@ import { Pagination } from "../../Components/Pagination";
 import { Form } from "./Form";
 import Loading from "react-loading";
 import { Filter } from "./Filters";
+import { useFunctions } from "../../Hooks/useFuncions";
 
 export function Dashboard() {
+  const {formatCurrency, maskAmountValue} = useFunctions();
   const initialBillForm = {
     description: "",
     category_id: "",
@@ -99,7 +101,9 @@ export function Dashboard() {
   };
 
   const handleFilter = () => {
-    console.log(Object.values(filters));
+    toggleFilterDrawer();
+
+    fetchCategories();
   };
 
   const fetchCategories = () => {
@@ -136,6 +140,21 @@ export function Dashboard() {
     return;
   };
 
+  const getFilterLabel = (key, value) => {
+    const labels = {
+      description: "Descrição",
+      category_id: "Categoria",
+      valueFrom: "A partir",
+      valueTo: "Até",
+    }
+
+    if (['valueFrom', 'valueTo'].includes(key)) {
+      value = formatCurrency(value);
+    }
+
+    return labels[key] + ': ' + value;
+  }
+
   useEffect(() => {
     fetchBills();
     fetchCategories();
@@ -146,6 +165,13 @@ export function Dashboard() {
       <div className="flex px-8 pt-4 flex-col flex-auto">
         <h1 className="font-bold text-4xl">Fluxo de caixa</h1>
         <div className="flex justify-center items-center bg-white mt-10 shadow-4xl rounded-lg relative">
+          <div className="absolute top-5 right-60 flex gap-2 py-2 items-center">
+            {Object.keys(filters).map(key => {
+              return filters[key] && (
+                <div className="text-xs bg-secondary text-white p-1 rounded-md">{getFilterLabel(key, filters[key])}</div>
+              )
+            })}
+          </div>
           <button
             className="absolute top-5 right-10 px-5 py-2 text-white bg-primary rounded-md"
             onClick={createBill}

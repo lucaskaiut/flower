@@ -1,3 +1,6 @@
+import { useState } from "react";
+import { useFunctions } from "../../Hooks/useFuncions";
+
 export const Filter = ({
   handleFilter,
   setFieldValue,
@@ -5,6 +8,21 @@ export const Filter = ({
   filters,
   categories
 }) => {
+  const [maskedFrom, setMaskedFrom] = useState("");
+  const [maskedTo, setMaskedTo] = useState("");
+  const { maskAmountValue } = useFunctions();
+
+  const handleAmountChange = (value, key) => {
+    const { value: amount, maskedValue } = maskAmountValue(value);
+    setFieldValue(key, amount);
+    
+    const functions = {
+      valueFrom: setMaskedFrom,
+      valueTo: setMaskedTo
+    }
+
+    functions[key](maskedValue);
+  }
   return (
     <>
       <input
@@ -21,13 +39,15 @@ export const Filter = ({
           type="text"
           placeholder="Valor a partir"
           className="p-4 border-2 rounded-lg flex-1"
-          onChange={event => setFieldValue("valueFrom", event.target.value)}
+          value={maskedFrom}
+          onChange={event => handleAmountChange(event.target.value, 'valueFrom')}
         />
         <input
           type="text"
           placeholder="Valor até"
           className="p-4 border-2 rounded-lg flex-1"
-          onChange={event => setFieldValue("valueTo", event.target.value)}
+          value={maskedTo}
+          onChange={event => handleAmountChange(event.target.value, 'valueTo')}
         />
       </div>
       <select

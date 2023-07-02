@@ -16,8 +16,34 @@ export const useFunctions = () => {
     return newString;
 }
 
+const maskAmountValue = (value) => {
+  let maskedValue = reverseString(value.toString().replace(/[^\d]+/gi, ""));
+
+  const mask = reverseString("###.###.###.###.###,##");
+
+  let result = "";
+
+  for (var x = 0, y = 0; x < mask.length && y < maskedValue.length; ) {
+    if (mask.charAt(x) != "#") {
+      result += mask.charAt(x);
+      x++;
+    } else {
+      result += maskedValue.charAt(y);
+      y++;
+      x++;
+    }
+  }
+
+  result = reverseString(result);
+
+  return {
+    value: parseFloat(result.replace(".", "").replace(",", ".")),
+    maskedValue: `R$ ${result}`
+  }
+};
+
   return {
     formatCurrency,
-    reverseString
+    maskAmountValue
   };
 };
