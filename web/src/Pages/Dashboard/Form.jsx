@@ -7,20 +7,12 @@ export const Form = ({
   setFieldValue,
   handleSubmit,
   closeDrawer,
-  isDrawerOpen
+  isDrawerOpen,
+  categories
 }) => {
-  const [categories, setCategories] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [maskedAmount, setMaskedAmount] = useState("");
   const { reverseString } = useFunctions();
-
-  const fetchCategories = () => {
-    setIsLoading(true);
-    const response = api.categories;
-
-    setCategories(response.data);
-    setIsLoading(false);
-  };
 
   const handleAmountChange = (value) => {
     let maskedValue = reverseString(value.toString().replace(/[^\d]+/gi, ""));
@@ -57,10 +49,6 @@ export const Form = ({
       setMaskedAmount("");
     }
   }, [isDrawerOpen]);
-
-  useEffect(() => {
-    fetchCategories();
-  }, []);
 
   return (
     <>

@@ -9,6 +9,7 @@ import "react-modern-drawer/dist/index.css";
 import { Pagination } from "../../Components/Pagination";
 import { Form } from "./Form";
 import Loading from "react-loading";
+import { Filter } from "./Filters";
 
 export function Dashboard() {
   const initialBillForm = {
@@ -17,6 +18,7 @@ export function Dashboard() {
     amount: "",
   };
   const [bills, setBills] = useState([]);
+  const [categories, setCategories] = useState([]);
   const [pagination, setPagination] = useState({});
   const [pageButtons, setPageButtons] = useState([]);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
@@ -24,6 +26,16 @@ export function Dashboard() {
   const [isFetching, setIsFetching] = useState(false);
   const [billForm, setBillForm] = useState(initialBillForm);
   const [editingBill, setEditingBill] = useState(null);
+
+  const initialFilters = {
+    description: "",
+    category_id: "",
+    valueFrom: "",
+    valueTo: "",
+  };
+
+  const [filters, setFilters] = useState(initialFilters);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchBills = (page = 1) => {
     setIsFetching(true);
@@ -79,6 +91,25 @@ export function Dashboard() {
     });
   };
 
+  const setFilterFieldValue = (field, value) => {
+    setFilters({
+      ...filters,
+      [field]: value,
+    });
+  };
+
+  const handleFilter = () => {
+    console.log(Object.values(filters));
+  };
+
+  const fetchCategories = () => {
+    setIsLoading(true);
+    const response = api.categories;
+
+    setCategories(response.data);
+    setIsLoading(false);
+  };
+
   const handleSubmit = () => {
     if (!billForm?.description || !billForm?.category_id) {
       toast.error("Informe o nome e tipo da categoria", {
@@ -93,11 +124,11 @@ export function Dashboard() {
     }
 
     if (billForm.id !== undefined) {
-      console.log('updating', {billForm});
+      console.log("updating", { billForm });
       //put
     } else {
       // post
-      console.log('creating', {billForm});
+      console.log("creating", { billForm });
     }
 
     toggleDrawer();
@@ -107,6 +138,7 @@ export function Dashboard() {
 
   useEffect(() => {
     fetchBills();
+    fetchCategories();
   }, []);
 
   return (
@@ -166,6 +198,7 @@ export function Dashboard() {
               closeDrawer={closeDrawer}
               handleSubmit={handleSubmit}
               setFieldValue={setFieldValue}
+              categories={categories}
             />
           </div>
         </div>
@@ -175,7 +208,18 @@ export function Dashboard() {
         className="min-w-max"
         direction="right"
         onClose={toggleFilterDrawer}
-      ></Drawer>
+      >
+        <div className="flex flex-col justify-center mt-5 gap-4 w-[600px] px-5">
+          <h1 className="text-bold text-2xl mt-5">Filtros</h1>
+          <Filter
+            filters={filters}
+            handleFilter={handleFilter}
+            categories={categories}
+            setFieldValue={setFilterFieldValue}
+            toggleDrawer={toggleFilterDrawer}
+          />
+        </div>
+      </Drawer>
     </AdminLayout>
   );
 }
