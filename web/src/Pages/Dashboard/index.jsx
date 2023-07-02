@@ -188,8 +188,8 @@ export function Dashboard() {
         <div className="flex w-[600px] px-5 flex-col">
           <h1 className="text-bold text-2xl mt-5">
             {editingBill
-              ? `Editando categoria ${editingBill.name}`
-              : "Criando categoria"}
+              ? `Editando conta`
+              : "Criando conta"}
           </h1>
           <div className="flex flex-col justify-center mt-5 gap-4">
             <Form
