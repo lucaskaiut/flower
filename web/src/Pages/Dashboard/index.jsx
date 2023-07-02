@@ -13,7 +13,7 @@ import { Filter } from "./Filters";
 import { useFunctions } from "../../Hooks/useFuncions";
 
 export function Dashboard() {
-  const {formatCurrency, maskAmountValue} = useFunctions();
+  const {formatCurrency} = useFunctions();
   const initialBillForm = {
     description: "",
     category_id: "",
@@ -37,7 +37,6 @@ export function Dashboard() {
   };
 
   const [filters, setFilters] = useState(initialFilters);
-  const [isLoading, setIsLoading] = useState(false);
 
   const fetchBills = (page = 1) => {
     setIsFetching(true);
@@ -107,11 +106,11 @@ export function Dashboard() {
   };
 
   const fetchCategories = () => {
-    setIsLoading(true);
+    setIsFetching(true);
     const response = api.categories;
 
     setCategories(response.data);
-    setIsLoading(false);
+    setIsFetching(false);
   };
 
   const handleSubmit = () => {
