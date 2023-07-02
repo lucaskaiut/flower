@@ -152,7 +152,17 @@ export function Dashboard() {
       value = formatCurrency(value);
     }
 
+    if (key == 'category_id') {
+      value = getCategoryName(value);
+    }
+
     return labels[key] + ': ' + value;
+  }
+
+  const getCategoryName = id => {
+    const category = categories.find(category => {return category.id == id});
+
+    return category.name;
   }
 
   useEffect(() => {
