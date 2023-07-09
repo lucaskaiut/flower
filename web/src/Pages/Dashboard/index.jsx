@@ -11,6 +11,7 @@ import { Form } from "./Form";
 import Loading from "react-loading";
 import { Filter } from "./Filters";
 import { useFunctions } from "../../Hooks/useFuncions";
+import { TotalCard } from "./TotalCard";
 
 export function Dashboard() {
   const {formatCurrency} = useFunctions();
@@ -28,6 +29,11 @@ export function Dashboard() {
   const [isFetching, setIsFetching] = useState(false);
   const [billForm, setBillForm] = useState(initialBillForm);
   const [editingBill, setEditingBill] = useState(null);
+  const [totals, setTotals] = useState({
+    in: 0,
+    out: 0,
+    status: 0
+  });
 
   const initialFilters = {
     description: "",
@@ -42,6 +48,7 @@ export function Dashboard() {
     setIsFetching(true);
     const response = api.bills;
     setBills(response.data);
+    setTotals(response.additional.totals);
     setPagination(response.meta);
     let rows = [];
 
@@ -173,6 +180,11 @@ export function Dashboard() {
     <AdminLayout>
       <div className="flex px-8 pt-4 flex-col flex-auto">
         <h1 className="font-bold text-4xl">Fluxo de caixa</h1>
+        <div className="flex justify-between mt-5">
+          <TotalCard total={totals.in} type="in"/>
+          <TotalCard total={totals.out} type="out"/>
+          <TotalCard total={totals.status} type="status"/>
+        </div>
         <div className="flex justify-center items-center bg-white mt-10 shadow-4xl rounded-lg relative">
           <div className="absolute top-5 right-60 flex gap-2 py-2 items-center">
             {Object.keys(filters).map(key => {

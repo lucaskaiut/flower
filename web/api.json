@@ -157,6 +157,13 @@
                 "date": "2023-06-25"
             }
         ],
+        "additional": {
+            "totals": {
+                "in": 104.37,
+                "out": 1003.94,
+                "status": -899.57
+            }
+        },
         "meta": {
             "current_page": 1,
             "from": 1,
