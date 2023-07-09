@@ -19,6 +19,7 @@ export function User() {
   const [userForm, setUserForm] = useState({
     name: "",
     type: "",
+    roles: []
   });
   const [editingUser, setEditingUser] = useState(null);
 

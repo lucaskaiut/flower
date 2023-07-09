@@ -9,10 +9,13 @@ export const Profile = () => {
     <AdminLayout>
       <div className="flex px-8 pt-4 flex-col flex-auto">
         <h1 className="font-bold text-4xl">Meu Perfil</h1>
-        <div className="flex justify-center items-center bg-white mt-10 shadow-4xl rounded-lg relative">
-          <img src={user.avatar} alt="" className="rounded-full top-[-60px] w-40 border-8 border-white absolute"/>
-          <div className="mt-40 flex flex-col gap-2 w-96">
-            <Form userForm={user}/>
+        <div className="flex mt-10 bg-white shadow-4xl rounded-lg ">
+          <div className="flex flex-1 justify-center items-center flex-col relative">
+            <img
+              src={user.avatar}
+              className="w-40 rounded-full border-white border-8"
+            />
+            <Form userForm={user} />
           </div>
         </div>
       </div>

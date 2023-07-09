@@ -1,6 +1,6 @@
-export const Form = ({userForm, setFieldValue, handleSubmit}) => {
+export const Form = ({ userForm, setFieldValue, handleSubmit }) => {
   return (
-    <>
+    <div className="mt-10 flex flex-col gap-2 w-96 pb-10">
       <input
         type="text"
         id="name"
@@ -21,12 +21,12 @@ export const Form = ({userForm, setFieldValue, handleSubmit}) => {
       />
       <div className="w-full flex gap-2">
         <button
-          className="px-5 py-2 flex-1 bg-primary text-white font-semibold rounded-md"
+          className="px-5 py-4 flex-1 bg-primary text-white font-semibold rounded-md"
           onClick={handleSubmit}
         >
           Salvar
         </button>
       </div>
-    </>
+    </div>
   );
 };

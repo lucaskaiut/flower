@@ -13,7 +13,23 @@
             "name": "Lucas Kaiut",
             "email": "lucas.kaiut@gmail.com",
             "created_at": "2023-06-16 00:17:45",
-            "avatar": "https://avatars.githubusercontent.com/u/24759223?s=400&u=6dad150e259c654fcb055a03039277c87eecef47&v=4"
+            "avatar": "https://avatars.githubusercontent.com/u/24759223?s=400&u=6dad150e259c654fcb055a03039277c87eecef47&v=4",
+            "roles": [
+                {
+                    "id": 1,
+                    "name": "Financeiro",
+                    "permissions": [],
+                    "created_at": "2023-07-03 20:33:31",
+                    "updated_at": "2023-07-03 20:33:31"
+                },
+                {
+                    "id": 2,
+                    "name": "Administrador",
+                    "permissions": [],
+                    "created_at": "2023-07-03 20:33:31",
+                    "updated_at": "2023-07-03 20:33:31"
+                }
+            ]
         }
     },
     "categories": {
@@ -54,14 +70,39 @@
                 "name": "Lucas Kaiut",
                 "email": "lucas.kaiut@gmail.com",
                 "created_at": "2023-06-16 00:17:45",
-                "avatar": "https://avatars.githubusercontent.com/u/24759223?s=400&u=6dad150e259c654fcb055a03039277c87eecef47&v=4"
+                "avatar": "https://avatars.githubusercontent.com/u/24759223?s=400&u=6dad150e259c654fcb055a03039277c87eecef47&v=4",
+                "roles": [
+                    {
+                        "id": 1,
+                        "name": "Financeiro",
+                        "permissions": [],
+                        "created_at": "2023-07-03 20:33:31",
+                        "updated_at": "2023-07-03 20:33:31"
+                    },
+                    {
+                        "id": 2,
+                        "name": "Administrador",
+                        "permissions": [],
+                        "created_at": "2023-07-03 20:33:31",
+                        "updated_at": "2023-07-03 20:33:31"
+                    }
+                ]
             },
             {
                 "id": 2,
                 "name": "Jhulli Silva",
                 "email": "jhullisilva2@gmail.com",
                 "created_at": "2023-06-21 12:40:34",
-                "avatar": "https://avatars.githubusercontent.com/u/24759223?s=400&u=6dad150e259c654fcb055a03039277c87eecef47&v=4"
+                "avatar": "https://avatars.githubusercontent.com/u/24759223?s=400&u=6dad150e259c654fcb055a03039277c87eecef47&v=4",
+                "roles": [
+                    {
+                        "id": 1,
+                        "name": "Financeiro",
+                        "permissions": [],
+                        "created_at": "2023-07-03 20:33:31",
+                        "updated_at": "2023-07-03 20:33:31"
+                    }
+                ]
             }
         ],
         "meta":{
@@ -114,6 +155,33 @@
                 },
                 "amount": 1003.94,
                 "date": "2023-06-25"
+            }
+        ],
+        "meta": {
+            "current_page": 1,
+            "from": 1,
+            "last_page": 3,
+            "path": "http://example.com/users",
+            "per_page": 1,
+            "to": 1,
+            "total": 3
+        }
+    },
+    "roles": {
+        "data": [
+            {
+                "id": 1,
+                "name": "Financeiro",
+                "permissions": [],
+                "created_at": "2023-07-03 20:33:31",
+                "updated_at": "2023-07-03 20:33:31"
+            },
+            {
+                "id": 2,
+                "name": "Administrador",
+                "permissions": [],
+                "created_at": "2023-07-03 20:33:31",
+                "updated_at": "2023-07-03 20:33:31"
             }
         ],
         "meta": {
