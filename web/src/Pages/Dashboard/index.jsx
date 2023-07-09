@@ -12,6 +12,7 @@ import Loading from "react-loading";
 import { Filter } from "./Filters";
 import { useFunctions } from "../../Hooks/useFuncions";
 import { TotalCard } from "./TotalCard";
+import { Badge } from "./Badge";
 
 export function Dashboard() {
   const {formatCurrency} = useFunctions();
@@ -186,10 +187,10 @@ export function Dashboard() {
           <TotalCard total={totals.status} type="status"/>
         </div>
         <div className="flex justify-center items-center bg-white mt-10 shadow-4xl rounded-lg relative">
-          <div className="absolute top-5 right-60 flex gap-2 py-2 items-center">
+          <div className="absolute top-4 right-60 flex gap-2 py-2 items-center justify-center">
             {Object.keys(filters).map(key => {
               return filters[key] && (
-                <div className="text-xs bg-secondary text-white p-1 rounded-md">{getFilterLabel(key, filters[key])}</div>
+                <Badge label={getFilterLabel(key, filters[key])} removeFilter={() => setFilterFieldValue(key, "")}/>
               )
             })}
           </div>
