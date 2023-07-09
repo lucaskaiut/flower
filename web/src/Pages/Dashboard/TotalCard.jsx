@@ -7,17 +7,17 @@ export const TotalCard = ({ type, total }) => {
 
   const icons = {
     in: {
-      icon: <ArrowUpCircle size={18} />,
+      icon: <ArrowUpCircle size={24} />,
       background: "green-500",
       text: 'Entradas'
     },
     out: {
-      icon: <ArrowDownCircle size={18} />,
+      icon: <ArrowDownCircle size={24} />,
       background: "green-500",
       text: 'Saídas',
     },
     status: {
-      icon: <DollarSign size={18} />,
+      icon: <DollarSign size={24} />,
       background: "secondary",
       text: 'Total',
     },
