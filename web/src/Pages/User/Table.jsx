@@ -1,7 +1,7 @@
-import { Edit, Trash } from 'react-feather';
-import moment from 'moment';
+import { Edit, Trash } from "react-feather";
+import moment from "moment";
 
-export const Table = ({users, editUser, deleteUser, className}) => {
+export const Table = ({ users, editUser, deleteUser, className }) => {
   return (
     <div className={"flex flex-col w-full p-10 gap-2" + className}>
       <div className="flex justify-between bg-zinc-50 py-5 px-8 rounded-t-lg">
@@ -39,7 +39,7 @@ export const Table = ({users, editUser, deleteUser, className}) => {
               />
               <Trash
                 size={20}
-                className="text-red-700 cursor-pointer hover:scale-125 transition-all"
+                className="text-danger cursor-pointer hover:scale-125 transition-all"
                 onClick={() => deleteUser(user)}
               />
             </div>

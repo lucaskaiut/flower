@@ -42,7 +42,7 @@ export const Table = ({bills, editBill, deleteBill, className}) => {
               />
               <Trash
                 size={20}
-                className="text-red-700 cursor-pointer hover:scale-125 transition-all"
+                className="text-danger cursor-pointer hover:scale-125 transition-all"
                 onClick={() => deleteBill(bill)}
               />
             </div>
