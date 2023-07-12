@@ -15,7 +15,7 @@ export const Table = ({bills, editBill, deleteBill, className}) => {
           <span>Valor</span>
         </div>
         <div className="">
-          <span>Data de cadastro</span>
+          <span>Referência</span>
         </div>
         <div className=""></div>
       </div>
@@ -32,7 +32,7 @@ export const Table = ({bills, editBill, deleteBill, className}) => {
               <span>{formatCurrency(bill.amount)}</span>
             </div>
             <div className="flex text-left">
-              <span>{moment(bill.created_at).format("D/MM/Y")}</span>
+              <span>{moment(bill.reference_date).format("D/MM/Y")}</span>
             </div>
             <div className="flex gap-2">
               <Edit
