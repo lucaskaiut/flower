@@ -48,8 +48,21 @@ export function Dashboard() {
 
   const [filters, setFilters] = useState(initialFilters);
 
-  const fetchBills = (page = 1) => {
+  const fetchBills = (page = 1, filters = {}) => {
     setIsFetching(true);
+
+    let cleandFilters = filters;
+    
+    Object.keys(cleandFilters).forEach(key => {
+      if (!cleandFilters[key]) {
+        delete cleandFilters[key];
+      }
+    });
+    
+    const queryParams = new URLSearchParams(cleandFilters).toString();
+
+    console.log(queryParams);
+
     const response = api.bills;
     setBills(response.data);
     setTotals(response.additional.totals);
@@ -104,29 +117,23 @@ export function Dashboard() {
   };
 
   const setFilterFieldValue = (field, value) => {
-    setFilters({
+    const updatedFilters = {
       ...filters,
       [field]: value,
-    });
+    };
+
+    setFilters(updatedFilters);
+    return updatedFilters;
   };
 
   const handleFilter = () => {
     toggleFilterDrawer();
 
-    fetchCategories();
+    fetchBills(1, filters);
   };
 
   const fetchCategories = () => {
     setIsFetching(true);
-    let cleandFilters = filters;
-    
-    Object.keys(cleandFilters).forEach(key => {
-      if (!cleandFilters[key]) {
-        delete cleandFilters[key];
-      }
-    });
-    
-    const queryParams = new URLSearchParams(cleandFilters).toString();
 
     const response = api.categories;
 
@@ -192,9 +199,9 @@ export function Dashboard() {
   }
 
   const removeFilter = (key) => {
-    setFilterFieldValue(key, "");
+    const filters = setFilterFieldValue(key, "");
 
-    fetchCategories();
+    fetchBills(1, filters);
   }
 
   useEffect(() => {
