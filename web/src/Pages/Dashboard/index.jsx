@@ -191,6 +191,12 @@ export function Dashboard() {
     return category.name;
   }
 
+  const removeFilter = (key) => {
+    setFilterFieldValue(key, "");
+
+    fetchCategories();
+  }
+
   useEffect(() => {
     fetchBills();
     fetchCategories();
@@ -209,7 +215,7 @@ export function Dashboard() {
           <div className="absolute top-4 right-60 flex gap-2 py-2 items-center justify-center">
             {Object.keys(filters).map(key => {
               return filters[key] && (
-                <Badge label={getFilterLabel(key, filters[key])} removeFilter={() => setFilterFieldValue(key, "")}/>
+                <Badge label={getFilterLabel(key, filters[key])} removeFilter={() => removeFilter(key)}/>
               )
             })}
           </div>
