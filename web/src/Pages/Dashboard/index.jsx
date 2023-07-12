@@ -13,6 +13,7 @@ import { Filter } from "./Filters";
 import { useFunctions } from "../../Hooks/useFuncions";
 import { TotalCard } from "./TotalCard";
 import { Badge } from "./Badge";
+import moment from "moment";
 
 export function Dashboard() {
   const {formatCurrency} = useFunctions();
@@ -20,6 +21,8 @@ export function Dashboard() {
     description: "",
     category_id: "",
     amount: "",
+    date_start: "",
+    date_end: ""
   };
   const [bills, setBills] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -115,6 +118,16 @@ export function Dashboard() {
 
   const fetchCategories = () => {
     setIsFetching(true);
+    let cleandFilters = filters;
+    
+    Object.keys(cleandFilters).forEach(key => {
+      if (!cleandFilters[key]) {
+        delete cleandFilters[key];
+      }
+    });
+    
+    const queryParams = new URLSearchParams(cleandFilters).toString();
+
     const response = api.categories;
 
     setCategories(response.data);
@@ -153,10 +166,16 @@ export function Dashboard() {
       category_id: "Categoria",
       valueFrom: "A partir",
       valueTo: "Até",
+      dateFrom: 'De',
+      dateTo: 'Até',
     }
 
     if (['valueFrom', 'valueTo'].includes(key)) {
       value = formatCurrency(value);
+    }
+
+    if (['dateFrom', 'dateTo'].includes(key)) {
+      value = moment(value).format('DD/MM/Y');
     }
 
     if (key == 'category_id') {

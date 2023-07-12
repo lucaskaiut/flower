@@ -16,34 +16,55 @@ export const useFunctions = () => {
     return newString;
 }
 
-const maskAmountValue = (value) => {
-  let maskedValue = reverseString(value.toString().replace(/[^\d]+/gi, ""));
+const maskString = (mask, value, reverse) => {
+  let string = value.toString().replace(/[^\d]+/gi, "");
 
-  const mask = reverseString("###.###.###.###.###,##");
+  if (reverse) {
+    string = reverseString(string);
+    mask = reverseString(mask);
+  }
 
-  let result = "";
+  let result = '';
 
-  for (var x = 0, y = 0; x < mask.length && y < maskedValue.length; ) {
+  for (var x = 0, y = 0; x < mask.length && y < string.length; ) {
     if (mask.charAt(x) != "#") {
       result += mask.charAt(x);
       x++;
     } else {
-      result += maskedValue.charAt(y);
+      result += string.charAt(y);
       y++;
       x++;
     }
   }
 
-  result = reverseString(result);
+  return reverse ? reverseString(result) : result;
+}
+
+const maskDateValue = (value) => {
+  const maskedValue = maskString('##/##/####', value);
+
+  let rawValue = maskedValue.split('/');
+
+  rawValue = rawValue[2] + '-' + rawValue[1] + '-' + rawValue[0];
 
   return {
-    value: parseFloat(result.replace(".", "").replace(",", ".")),
-    maskedValue: `R$ ${result}`
+    rawValue,
+    maskedValue
+  }
+}
+
+const maskAmountValue = (value) => {
+  const maskedValue = maskString('###.###.###.###.###,##', value, true);
+
+  return {
+    value: parseFloat(maskedValue.replace(".", "").replace(",", ".")),
+    maskedValue: `R$ ${maskedValue}`
   }
 };
 
   return {
     formatCurrency,
-    maskAmountValue
+    maskAmountValue,
+    maskDateValue,
   };
 };
