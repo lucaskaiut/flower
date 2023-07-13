@@ -14,6 +14,7 @@ import { useFunctions } from "../../Hooks/useFuncions";
 import { TotalCard } from "./TotalCard";
 import { Badge } from "./Badge";
 import moment from "moment";
+import { PaymentForm } from "./PaymentForm";
 
 export function Dashboard() {
   const {formatCurrency} = useFunctions();
@@ -40,6 +41,7 @@ export function Dashboard() {
   });
   const [isPaymentDrawerOpen, setIsPaymentDrawerOpen] = useState(false);
   const [payingBill, setPayingBill] = useState(null);
+  const [paymentMethods, setPaymentMethods] = useState([]);
 
   const initialFilters = {
     description: "",
@@ -221,19 +223,34 @@ export function Dashboard() {
     togglePaymentDrawer();
   }
 
+  const submitBillPayment = (paymentMethodId) => {
+    fetchBills(filters);
+    togglePaymentDrawer();
+  }
+
   const togglePaymentDrawer = () => {
     setIsPaymentDrawerOpen(!isPaymentDrawerOpen);
+  }
+
+  const fetchPaymentMethods = () => {
+    setIsFetching(true);
+
+    const response = api.paymentMethods;
+
+    setPaymentMethods(response.data);
+    setIsFetching(false);
   }
 
   useEffect(() => {
     fetchBills();
     fetchCategories();
+    fetchPaymentMethods();
   }, []);
 
   return (
     <AdminLayout>
       <div className="flex px-8 pt-4 flex-col flex-auto">
-        <h1 className="font-bold text-4xl">Fluxo de caixa</h1>
+        <h1 className="font-bold text-4xl">Contas a pagar e receber</h1>
         <div className="flex justify-between mt-5">
           <TotalCard total={totals.in} type="in"/>
           <TotalCard total={totals.out} type="out"/>
@@ -330,7 +347,11 @@ export function Dashboard() {
       >
         <div className="flex flex-col justify-center mt-5 gap-4 w-[600px] px-5">
           <h1 className="text-bold text-2xl mt-5">Pagar conta</h1>
-          
+          <PaymentForm 
+            closeDrawer={togglePaymentDrawer} 
+            onSubmit={submitBillPayment} 
+            paymentMethods={paymentMethods}
+          />
         </div>
       </Drawer>
     </AdminLayout>
