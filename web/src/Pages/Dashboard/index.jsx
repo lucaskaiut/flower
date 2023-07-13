@@ -61,8 +61,6 @@ export function Dashboard() {
     
     const queryParams = new URLSearchParams(cleandFilters).toString();
 
-    console.log(queryParams);
-
     const response = api.bills;
     setBills(response.data);
     setTotals(response.additional.totals);
@@ -222,7 +220,7 @@ export function Dashboard() {
           <div className="absolute top-4 right-60 flex gap-2 py-2 items-center justify-center">
             {Object.keys(filters).map(key => {
               return filters[key] && (
-                <Badge label={getFilterLabel(key, filters[key])} removeFilter={() => removeFilter(key)}/>
+                <Badge key={key} label={getFilterLabel(key, filters[key])} removeFilter={() => removeFilter(key)}/>
               )
             })}
           </div>
