@@ -62,9 +62,19 @@ const maskAmountValue = (value) => {
   }
 };
 
+const maskFloatValue = (value) => {
+  const maskedValue = maskString('###.###.###.###,##', value, true);
+
+  return {
+    value: parseFloat(maskedValue.replace(".", "").replace(",", ".")),
+    maskedValue
+  }
+}
+
   return {
     formatCurrency,
     maskAmountValue,
     maskDateValue,
+    maskFloatValue,
   };
 };

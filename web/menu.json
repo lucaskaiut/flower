@@ -14,5 +14,9 @@
     {
         "path": "/perfil",
         "label": "Meu Perfil"
+    },
+    {
+        "path": "/pagamentos",
+        "label": "Métodos de Pagamento"
     }
 ]

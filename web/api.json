@@ -203,5 +203,46 @@
             "to": 1,
             "total": 3
         }
+    },
+    "paymentMethods": {
+        "data": [
+            {
+                "id": 1,
+                "name": "Dinheiro",
+                "fee": 0,
+                "created_at":"2023-07-13 00:17:45",
+                "updated_at":"2023-07-13 00:17:45"
+            },
+            {
+                "id": 2,
+                "name": "Cartão de crédito",
+                "fee": 4.9,
+                "created_at":"2023-07-13 00:17:45",
+                "updated_at":"2023-07-13 00:17:45"
+            },
+            {
+                "id": 3,
+                "name": "Débito",
+                "fee": 1.98,
+                "created_at":"2023-07-13 00:17:45",
+                "updated_at":"2023-07-13 00:17:45"
+            },
+            {
+                "id": 4,
+                "name": "iFood",
+                "fee": 25.02,
+                "created_at": "2023-07-13 00:17:45",
+                "updated_at": "2023-07-13 00:17:45"
+            }
+        ],
+        "meta": {
+            "current_page": 1,
+            "from": 1,
+            "last_page": 3,
+            "path": "http://example.com/users",
+            "per_page": 1,
+            "to": 1,
+            "total": 3
+        }
     }
 }
