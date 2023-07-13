@@ -38,6 +38,8 @@ export function Dashboard() {
     out: 0,
     status: 0
   });
+  const [isPaymentDrawerOpen, setIsPaymentDrawerOpen] = useState(false);
+  const [payingBill, setPayingBill] = useState(null);
 
   const initialFilters = {
     description: "",
@@ -202,6 +204,27 @@ export function Dashboard() {
     fetchBills(1, filters);
   }
 
+  const payBill = bill => {
+    if (bill.is_paid) {
+      toast.error("Essa conta já está paga", {
+        position: "top-center",
+        autoClose: 3000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        toastId: "bill-already-paid",
+      });
+
+      return;
+    }
+
+    setPayingBill(bill);
+    togglePaymentDrawer();
+  }
+
+  const togglePaymentDrawer = () => {
+    setIsPaymentDrawerOpen(!isPaymentDrawerOpen);
+  }
+
   useEffect(() => {
     fetchBills();
     fetchCategories();
@@ -247,6 +270,7 @@ export function Dashboard() {
                   bills={bills}
                   deleteBill={deleteBill}
                   editBill={editBill}
+                  payBill={payBill}
                 />
                 <Pagination
                   from={pagination.from}
@@ -296,6 +320,17 @@ export function Dashboard() {
             setFieldValue={setFilterFieldValue}
             toggleDrawer={toggleFilterDrawer}
           />
+        </div>
+      </Drawer>
+      <Drawer
+        open={isPaymentDrawerOpen}
+        className="min-w-max"
+        direction="right"
+        onClose={togglePaymentDrawer}
+      >
+        <div className="flex flex-col justify-center mt-5 gap-4 w-[600px] px-5">
+          <h1 className="text-bold text-2xl mt-5">Pagar conta</h1>
+          
         </div>
       </Drawer>
     </AdminLayout>

@@ -1,8 +1,9 @@
-import { Edit, Trash } from 'react-feather';
+import { DollarSign, Edit, Trash } from 'react-feather';
 import moment from 'moment';
 import { useFunctions } from '../../Hooks/useFuncions';
+import classNames from 'classnames';
 
-export const Table = ({bills, editBill, deleteBill, className}) => {
+export const Table = ({bills, editBill, deleteBill, className, payBill}) => {
   const { formatCurrency } = useFunctions();
 
   return (
@@ -24,6 +25,7 @@ export const Table = ({bills, editBill, deleteBill, className}) => {
           <div
             className="flex justify-between py-5 px-8 border-b hover:bg-zinc-100 cursor-pointer transition-all"
             key={bill.id}
+            onClick={() => onRowClick(bill.id)}
           >
             <div className="flex text-left">
               <span>{bill.description}</span>
@@ -35,6 +37,11 @@ export const Table = ({bills, editBill, deleteBill, className}) => {
               <span>{moment(bill.reference_date).format("D/MM/Y")}</span>
             </div>
             <div className="flex gap-2">
+              <DollarSign
+                size={20}
+                className="text-success cursor-pointer hover:scale-125 transition-all"
+                onClick={() => payBill(bill)}
+              />
               <Edit
                 size={20}
                 className="cursor-pointer hover:scale-125 transition-all"
