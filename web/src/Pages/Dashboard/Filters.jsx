@@ -94,7 +94,10 @@ export const Filter = ({
           className="border-2 p-4 rounded-lg flex-1"
         />
       </div>
-
+      <div className="flex gap-2">
+        <input type="checkbox" name="" id="checkbox" onChange={event => {setFieldValue('is_paid', event.target.checked)}}/>
+        <label for="checkbox">Exibir pagos</label>
+      </div>
       <div className="w-full flex gap-2">
         <button
           className="px-5 py-2 flex-1 bg-primary text-white font-semibold rounded-md"

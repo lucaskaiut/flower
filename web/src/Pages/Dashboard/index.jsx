@@ -48,6 +48,7 @@ export function Dashboard() {
     category_id: "",
     valueFrom: "",
     valueTo: "",
+    is_paid: false,
   };
 
   const [filters, setFilters] = useState(initialFilters);
@@ -64,6 +65,8 @@ export function Dashboard() {
     });
     
     const queryParams = new URLSearchParams(cleandFilters).toString();
+
+    console.log(queryParams);
 
     const response = api.bills;
     setBills(response.data);
@@ -177,6 +180,7 @@ export function Dashboard() {
       valueTo: "Até",
       dateFrom: 'De',
       dateTo: 'Até',
+      is_paid: "Exibir pagas"
     }
 
     if (['valueFrom', 'valueTo'].includes(key)) {
@@ -189,6 +193,10 @@ export function Dashboard() {
 
     if (key == 'category_id') {
       value = getCategoryName(value);
+    }
+
+    if (key == 'is_paid') {
+      value = value ? 'Sim' : 'Não';
     }
 
     return labels[key] + ': ' + value;
@@ -224,7 +232,7 @@ export function Dashboard() {
   }
 
   const submitBillPayment = (paymentMethodId) => {
-    fetchBills(filters);
+    fetchBills(1, filters);
     togglePaymentDrawer();
   }
 
