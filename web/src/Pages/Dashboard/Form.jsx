@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import api from "../../../api.json";
 import { useFunctions } from "../../Hooks/useFuncions";
 
 export const Form = ({
@@ -10,7 +9,6 @@ export const Form = ({
   isDrawerOpen,
   categories
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
   const [maskedAmount, setMaskedAmount] = useState("");
   const { maskAmountValue } = useFunctions();
 
@@ -47,12 +45,12 @@ export const Form = ({
         {categories.map((category) => {
           if (category.id == billForm?.category_id) {
             return (
-              <option value={category.id} selected>
+              <option value={category.id} selected key={category.id}>
                 {category.name}
               </option>
             );
           } else {
-            return <option value={category.id}>{category.name}</option>;
+            return <option value={category.id} key={category.id}>{category.name}</option>;
           }
         })}
       </select>

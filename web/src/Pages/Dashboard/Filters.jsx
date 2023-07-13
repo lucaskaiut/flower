@@ -75,7 +75,7 @@ export const Filter = ({
       >
         <option value="">Selecione</option>
         {categories.map((category) => {
-          return <option value={category.id}>{category.name}</option>;
+          return <option value={category.id} key={category.id}>{category.name}</option>;
         })}
       </select>
       <div className="w-full flex gap-2">
