@@ -95,7 +95,12 @@ export const Filter = ({
         />
       </div>
       <div className="flex gap-2">
-        <input type="checkbox" name="" id="checkbox" onChange={event => {setFieldValue('is_paid', event.target.checked)}}/>
+        { filters.is_paid && (
+          <input type="checkbox" checked name="" id="checkbox" onChange={event => {setFieldValue('is_paid', event.target.checked)}}/>
+          )}
+        { !filters.is_paid && (
+          <input type="checkbox" name="" id="checkbox" onChange={event => {setFieldValue('is_paid', event.target.checked)}}/>
+        )}
         <label for="checkbox">Exibir pagos</label>
       </div>
       <div className="w-full flex gap-2">
