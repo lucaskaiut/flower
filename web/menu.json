@@ -18,5 +18,9 @@
     {
         "path": "/pagamentos",
         "label": "Métodos de Pagamento"
+    },
+    {
+        "path": "/caixa",
+        "label": "Caixa"
     }
 ]

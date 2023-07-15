@@ -244,5 +244,36 @@
             "to": 1,
             "total": 3
         }
+    }, 
+    "cashier": {
+        "data": [
+            {
+                "id": 1,
+                "description": "Pedidos",
+                "category_id": 1,
+                "category": {
+                    "id": 1,
+                    "name": "Vendas",
+                    "type": "in",
+                    "created_at": "2023-06-16 18:15:34"
+                },
+                "amount": 49.97,
+                "reference_date": "2023-06-21",
+                "is_paid": true,
+                "paid_at": "2023-07-15 16:25:34"
+            }
+        ],
+        "additional": {
+            "amount": 899.43
+        },
+        "meta": {
+            "current_page": 1,
+            "from": 1,
+            "last_page": 3,
+            "path": "http://example.com/users",
+            "per_page": 1,
+            "to": 1,
+            "total": 3
+        }
     }
 }
