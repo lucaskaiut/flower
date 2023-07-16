@@ -22,8 +22,7 @@ export function Dashboard() {
     description: "",
     category_id: "",
     amount: "",
-    date_start: "",
-    date_end: ""
+    due_at: "",
   };
   const [bills, setBills] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -49,6 +48,7 @@ export function Dashboard() {
     valueFrom: "",
     valueTo: "",
     is_paid: false,
+    due_at: ""
   };
 
   const [filters, setFilters] = useState(initialFilters);

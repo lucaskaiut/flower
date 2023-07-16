@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useFunctions } from "../../Hooks/useFuncions";
+import moment from "moment";
 
 export const Form = ({
   billForm,
@@ -10,7 +11,8 @@ export const Form = ({
   categories
 }) => {
   const [maskedAmount, setMaskedAmount] = useState("");
-  const { maskAmountValue } = useFunctions();
+  const [maskedDueAt, setMaskedDueAt] = useState("");
+  const { maskAmountValue, maskDateValue } = useFunctions();
 
   const handleAmountChange = (rawValue) => {
     const { value, maskedValue } = maskAmountValue(rawValue);
@@ -18,12 +20,21 @@ export const Form = ({
     setMaskedAmount(maskedValue);
   }
 
+  const handleDateChange = (value, key) => {
+    const { rawValue, maskedValue } = maskDateValue(value);
+    setFieldValue(key, rawValue);
+
+    setMaskedDueAt(maskedValue);
+  };
+
   useEffect(() => {
     if (billForm && billForm.amount !== "") {
       handleAmountChange(billForm?.amount?.toFixed(2) ?? "")
     } else {
       setMaskedAmount("");
     }
+
+    setMaskedDueAt(moment(billForm.due_at).format('DD/MM/Y'));
   }, [isDrawerOpen]);
 
   return (
@@ -62,6 +73,15 @@ export const Form = ({
         onChange={(event) => handleAmountChange(event.target.value)}
         autoComplete="false"
         className="p-4 border-2 rounded-lg"
+      />
+      <input
+        type="text"
+        placeholder="Vencimento"
+        className="p-4 border-2 rounded-lg flex-1"
+        value={maskedDueAt}
+        onChange={(event) =>
+          handleDateChange(event.target.value, "due_at")
+        }
       />
       <div className="w-full flex gap-2">
         <button

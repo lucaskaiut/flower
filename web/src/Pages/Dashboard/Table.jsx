@@ -18,6 +18,9 @@ export const Table = ({bills, editBill, deleteBill, className, payBill}) => {
         <div className="w-60">
           <span>Referência</span>
         </div>
+        <div className="w-60">
+          <span>Vencimento</span>
+        </div>
         <div className=""></div>
       </div>
       {bills.map((bill) => {
@@ -40,7 +43,10 @@ export const Table = ({bills, editBill, deleteBill, className, payBill}) => {
               <span>{formatCurrency(bill.amount)}</span>
             </div>
             <div className="w-60">
-              <span>{moment(bill.reference_date).format("D/MM/Y")}</span>
+              <span>{moment(bill.reference_date).format("DD/MM/Y")}</span>
+            </div>
+            <div className="w-60">
+              <span>{moment(bill.due_at).format("DD/MM/Y")}</span>
             </div>
             <div className="flex gap-2">
               <DollarSign

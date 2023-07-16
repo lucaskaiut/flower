@@ -129,7 +129,8 @@
                 },
                 "amount": 49.97,
                 "reference_date": "2023-06-21",
-                "is_paid": false
+                "is_paid": false,
+                "due_at": "2023-07-05"
             },
             {
                 "id": 2,
@@ -143,7 +144,8 @@
                 },
                 "amount": 54.4,
                 "reference_date": "2023-06-21",
-                "is_paid": false
+                "is_paid": false,
+                "due_at": "2023-07-05"
             },
             {
                 "id": 3,
@@ -157,7 +159,8 @@
                 },
                 "amount": 1003.94,
                 "reference_date": "2023-06-25",
-                "is_paid": false
+                "is_paid": false,
+                "due_at": "2023-07-05"
             }
         ],
         "additional": {
@@ -167,33 +170,6 @@
                 "status": -899.57
             }
         },
-        "meta": {
-            "current_page": 1,
-            "from": 1,
-            "last_page": 3,
-            "path": "http://example.com/users",
-            "per_page": 1,
-            "to": 1,
-            "total": 3
-        }
-    },
-    "roles": {
-        "data": [
-            {
-                "id": 1,
-                "name": "Financeiro",
-                "permissions": [],
-                "created_at": "2023-07-03 20:33:31",
-                "updated_at": "2023-07-03 20:33:31"
-            },
-            {
-                "id": 2,
-                "name": "Administrador",
-                "permissions": [],
-                "created_at": "2023-07-03 20:33:31",
-                "updated_at": "2023-07-03 20:33:31"
-            }
-        ],
         "meta": {
             "current_page": 1,
             "from": 1,
