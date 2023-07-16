@@ -20,7 +20,7 @@
         "label": "Métodos de Pagamento"
     },
     {
-        "path": "/caixa",
-        "label": "Caixa"
+        "path": "/contas",
+        "label": "Contas a pagar e receber"
     }
 ]

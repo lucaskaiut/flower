@@ -1,9 +1,8 @@
-import { DollarSign, Edit, Trash } from 'react-feather';
 import moment from 'moment';
 import { useFunctions } from '../../Hooks/useFuncions';
 import classNames from 'classnames';
 
-export const Table = ({bills, editBill, deleteBill, className, payBill}) => {
+export const Table = ({movements, className}) => {
   const { formatCurrency } = useFunctions();
 
   return (
@@ -19,51 +18,36 @@ export const Table = ({bills, editBill, deleteBill, className, payBill}) => {
           <span>Referência</span>
         </div>
         <div className="w-60">
-          <span>Vencimento</span>
+          <span>Data de pagamento</span>
         </div>
         <div className=""></div>
       </div>
-      {bills.map((bill) => {
+      {movements.map((movement) => {
         return (
           <div
             className="flex py-5 px-8 border-b hover:bg-zinc-100 cursor-pointer transition-all"
-            key={bill.id}
-            onClick={() => onRowClick(bill.id)}
+            key={movement.id}
+            onClick={() => onRowClick(movement.id)}
           >
             <div className={classNames("w-1 mr-1", {
-              "bg-danger": bill.category.type == 'out',
-              "bg-success": bill.category.type == 'in',
+              "bg-danger": movement.category.type == 'out',
+              "bg-success": movement.category.type == 'in',
             })}>
               
             </div>
             <div className="w-60">
-              <span>{bill.description}</span>
+              <span>{movement.description}</span>
             </div>
             <div className="w-60">
-              <span>{formatCurrency(bill.amount)}</span>
+              <span>{formatCurrency(movement.amount)}</span>
             </div>
             <div className="w-60">
-              <span>{moment(bill.reference_date).format("DD/MM/Y")}</span>
+              <span>{moment(movement.reference_date).format("D/MM/Y")}</span>
             </div>
             <div className="w-60">
-              <span>{moment(bill.due_at).format("DD/MM/Y")}</span>
+              <span>{moment(movement.paid_at).format("D/MM/Y")}</span>
             </div>
             <div className="flex gap-2">
-              <DollarSign
-                size={20}
-                className="text-success cursor-pointer hover:scale-125 transition-all"
-                onClick={() => payBill(bill)}
-              />
-              <Edit
-                size={20}
-                className="cursor-pointer hover:scale-125 transition-all"
-                onClick={() => editBill(bill)}
-              />
-              <Trash
-                size={20}
-                className="text-danger cursor-pointer hover:scale-125 transition-all"
-                onClick={() => deleteBill(bill)}
-              />
             </div>
           </div>
         );
