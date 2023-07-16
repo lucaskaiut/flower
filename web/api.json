@@ -240,7 +240,8 @@
             }
         ],
         "additional": {
-            "amount": 899.43
+            "amount": 899.43,
+            "is_open": false
         },
         "meta": {
             "current_page": 1,

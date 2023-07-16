@@ -15,6 +15,7 @@ export const Cashier = () => {
   const { formatCurrency } = useFunctions();
   const [amount, setAmount] = useState(0);
   const [categories, setCategories] = useState([]);
+  const [isCashierOpen, setIsCashierOpen] = useState(false);
   const initialMovementForm = {
     description: "",
     category_id: "",
@@ -29,6 +30,7 @@ export const Cashier = () => {
     const response = api.cashier;
     setAmount(response.additional.amount);
     setMovements(response.data);
+    setIsCashierOpen(response.additional.is_open);
     setIsFetching(false);
   }
 
@@ -73,6 +75,14 @@ export const Cashier = () => {
     toggleDrawer();
   }
 
+  const closeCashier = () => {
+
+  }
+
+  const openCashier = () => {
+    fetchMovements();
+  }
+
   useEffect(() => {
     fetchMovements();
     fetchCategories();
@@ -94,6 +104,11 @@ export const Cashier = () => {
             </div>
           </div>  
         <div className="flex flex-col justify-center items-center relative bg-white mt-10 shadow-4xl rounded-lg">
+          { isCashierOpen ? (
+            <button onClick={() => closeCashier()} className="bg-danger hover:brightness-90 transition-all px-5 py-2 rounded-lg absolute top-2 right-24 text-white">Fechar Caixa</button>
+          ) : (
+            <button onClick={() => openCashier()} className="bg-success hover:brightness-90 transition-all px-5 py-2 rounded-lg absolute top-2 right-24 text-white">Abrir Caixa</button>
+          )}
           <button onClick={() => createMovement()} className="bg-primary hover:brightness-90 transition-all px-5 py-2 rounded-lg absolute top-2 right-2 text-white">Nova</button>
           <Table movements={movements}/>
         </div>  
