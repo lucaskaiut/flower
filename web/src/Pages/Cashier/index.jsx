@@ -105,12 +105,20 @@ export const Cashier = () => {
           </div>  
         <div className="flex flex-col justify-center items-center relative bg-white mt-10 shadow-4xl rounded-lg">
           { isCashierOpen ? (
-            <button onClick={() => closeCashier()} className="bg-danger hover:brightness-90 transition-all px-5 py-2 rounded-lg absolute top-2 right-24 text-white">Fechar Caixa</button>
+            <>
+              <button onClick={() => closeCashier()} className="bg-danger hover:brightness-90 transition-all px-5 py-2 rounded-lg absolute top-2 right-24 text-white">Fechar Caixa</button>
+              <button onClick={() => createMovement()} className="bg-primary hover:brightness-90 transition-all px-5 py-2 rounded-lg absolute top-2 right-2 text-white">Nova</button>
+              <Table movements={movements}/>
+            </>
           ) : (
-            <button onClick={() => openCashier()} className="bg-success hover:brightness-90 transition-all px-5 py-2 rounded-lg absolute top-2 right-24 text-white">Abrir Caixa</button>
+            <div className="p-10">
+              <button 
+                onClick={() => openCashier()} 
+                className="bg-success hover:brightness-90 transition-all px-5 py-2 rounded-lg text-white">
+                Abrir Caixa
+              </button>
+            </div>
           )}
-          <button onClick={() => createMovement()} className="bg-primary hover:brightness-90 transition-all px-5 py-2 rounded-lg absolute top-2 right-2 text-white">Nova</button>
-          <Table movements={movements}/>
         </div>  
       </div>
       <Drawer open={isDrawerOpen} className="min-w-max" direction="right">
