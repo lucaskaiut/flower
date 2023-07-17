@@ -19,4 +19,9 @@ class UserController extends Controller
     {
         return new UserLoginResource($userService->login($request->all()));
     }
+
+    public function me()
+    {
+        return new UserResource(auth()->user());
+    }
 }

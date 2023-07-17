@@ -17,4 +17,8 @@ use App\Http\Controllers\UserController;
 Route::group(['controller' => UserController::class, 'prefix' => 'user'], function () {
     Route::post('register', 'register')->name('user.register');
     Route::post('login', 'login')->name('user.login');
+
+    Route::group(['middleware' => 'auth:sanctum'], function () {
+        Route::get('me', 'me')->name('user.me');
+    });
 });
