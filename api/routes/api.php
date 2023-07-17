@@ -14,5 +14,6 @@ use App\Http\Controllers\UserController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
-Route::post('user/register', [UserController::class, 'register'])->name('user.register');
+Route::group(['controller' => UserController::class], function () {
+    Route::post('user/register', 'register')->name('user.register');
+});
