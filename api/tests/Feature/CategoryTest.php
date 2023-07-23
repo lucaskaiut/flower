@@ -109,4 +109,47 @@ class CategoryTest extends TestCase
             ],
         ]);
     }
+
+    public function test_can_update_a_category()
+    {
+        $user = User::create([
+            'name' => 'Lucas Kaiut - Test Update Category',
+            'email' => 'lucas.kaiut_test_update_category@gmail.com',
+            'password' => '1815Kaiut!@'
+        ]);
+
+        $category = Category::create(['name' => 'Category Test', 'type' => 'in', 'user_id' => $user->id]);
+
+        $response = $this->put(route('category.update', ['category' => $category->id]), [
+            'name' => 'Category Test - Updated',
+        ], [
+            'Authorization' => 'Bearer ' . $user->createToken('auth')->plainTextToken,
+        ]);
+
+        $response->assertOk();
+        
+        $category->refresh();
+
+        $this->assertTrue($category->name == 'Category Test - Updated');
+    }
+
+    public function test_delete_a_category()
+    {
+        $user = User::create([
+            'name' => 'Lucas Kaiut - Test Delete Category',
+            'email' => 'lucas.kaiut_test_delete_category@gmail.com',
+            'password' => '1815Kaiut!@'
+        ]);
+
+        $category = Category::create(['name' => 'Category Test', 'type' => 'in', 'user_id' => $user->id]);
+
+        $categoryId = $category->id;
+
+        $response = $this->delete(route('category.destroy', ['category' => $category->id]), [], [
+            'Authorization' => 'Bearer ' . $user->createToken('auth')->plainTextToken,
+        ]);
+
+        $response->assertOk();
+        $this->assertNull(Category::find($categoryId));
+    }
 }
