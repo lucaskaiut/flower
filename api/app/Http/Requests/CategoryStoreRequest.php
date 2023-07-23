@@ -26,7 +26,7 @@ class CategoryStoreRequest extends FormRequest
             'name' => [
                 'required',
                 'min:3',
-                'max:6',
+                'max:64',
             ],
             'type' => [
                 'required',
