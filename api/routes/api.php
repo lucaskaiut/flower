@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PaymentMethodController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -18,16 +19,10 @@ use App\Http\Controllers\UserController;
 Route::group(['controller' => UserController::class, 'prefix' => 'user'], function () {
     Route::post('register', 'register')->name('user.register');
     Route::post('login', 'login')->name('user.login');
-
-    Route::group(['middleware' => 'auth:sanctum'], function () {
-        Route::get('me', 'me')->name('user.me');
-    });
 });
 
-Route::group(['controller' => CategoryController::class, 'prefix' => 'category', 'middleware' => 'auth:sanctum'], function () {
-    Route::post('', 'store')->name('category.store');
-    Route::get('', 'index')->name('category.index');
-    Route::get('{category}', 'show')->name('category.show');
-    Route::put('{category}', 'update')->name('category.update');
-    Route::delete('{category}', 'destroy')->name('category.destroy');
+Route::group(attributes: ['middleware' => 'auth:sanctum'], routes: function () {
+    Route::resource('category', CategoryController::class)->except(['create', 'edit']);
+    Route::resource('payment_method', PaymentMethodController::class)->except(['create', 'edit']);
+    Route::get('user/me', [UserController::class, 'me'])->name('user.me');
 });
