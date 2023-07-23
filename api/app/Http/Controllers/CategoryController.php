@@ -39,9 +39,9 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CategoryUpdateRequest $request, Category $category)
+    public function update(CategoryUpdateRequest $request, Category $category, CategoryService $categoryService)
     {
-        //
+        return new CategoryResource($categoryService->update($category, $request->all()));
     }
 
     /**
