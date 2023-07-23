@@ -10,6 +10,8 @@ use Tests\TestCase;
 
 class CategoryTest extends TestCase
 {
+    use RefreshDatabase;
+    
     public function test_create_category()
     {
         $payload = [
