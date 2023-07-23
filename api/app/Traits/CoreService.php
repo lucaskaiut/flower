@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Pagination\Paginator;
 
 trait CoreService
@@ -18,5 +19,17 @@ trait CoreService
     public function store(array $data)
     {
         return $this->model::create($data);
+    }
+
+    public function update(Model $model, array $data): Model
+    {
+        $model->update($data);
+
+        return $model;
+    }
+
+    public function delete(Model $model)
+    {
+        $model->delete();
     }
 }
