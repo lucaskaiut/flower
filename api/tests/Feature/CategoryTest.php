@@ -42,14 +42,16 @@ class CategoryTest extends TestCase
 
     public function test_list_categories()
     {
-        $token = User::create([
+        $user = User::create([
             'name' => 'Lucas Kaiut - Test List Categories',
             'email' => 'lucas.kaiut_test_list_categories@gmail.com',
             'password' => '1815Kaiut!@'
-        ])->createToken('auth')->plainTextToken;
+        ]);
+
+        Category::create(['name' => 'Category Test', 'type' => 'in', 'user_id' => $user->id]);
 
         $response = $this->get(route('category.index'), [
-            'Authorization' => 'Bearer ' . $token, 
+            'Authorization' => 'Bearer ' . $user->createToken('auth')->plainTextToken, 
         ]);
 
         $response->assertOk();
