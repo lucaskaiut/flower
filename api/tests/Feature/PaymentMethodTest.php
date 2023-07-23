@@ -6,9 +6,12 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\PaymentMethod;
+use App\Models\User;
 
 class PaymentMethodTest extends TestCase
 {
+    use RefreshDatabase;
+    
     public function test_create_payment_method()
     {
         $token = User::create([
@@ -173,6 +176,6 @@ class PaymentMethodTest extends TestCase
 
         $response->assertOk();
         
-        $this->assertIsNull(PaymentMethod::find($paymentMethodId));
+        $this->assertNull(PaymentMethod::find($paymentMethodId));
     }
 }
