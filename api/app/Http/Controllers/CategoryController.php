@@ -24,7 +24,6 @@ class CategoryController extends Controller
     public function store(CategoryStoreRequest $request, CategoryService $categoryService)
     {
         $data = $request->all();
-        $data['user_id'] = auth()->user()->id;
         return new CategoryResource($categoryService->store($data));
     }
 
