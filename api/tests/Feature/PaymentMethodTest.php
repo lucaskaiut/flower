@@ -11,7 +11,7 @@ use App\Models\User;
 class PaymentMethodTest extends TestCase
 {
     use RefreshDatabase;
-    
+
     public function test_create_payment_method()
     {
         $token = User::create([
@@ -25,9 +25,11 @@ class PaymentMethodTest extends TestCase
             'fee' => 0
         ];
 
-        $response = $this->post(route('payment_method.store'), $payload, [
-            'Authorization' => 'Bearer ' . $token,
-        ]);
+        $response = $this->post(
+            uri: route('payment_method.store'),
+            data: $payload,
+            headers: ['Authorization' => 'Bearer ' . $token,]
+        );
 
         $response->assertCreated();
         $response->assertJsonStructure([
@@ -53,13 +55,13 @@ class PaymentMethodTest extends TestCase
 
         PaymentMethod::create(['name' => 'Dinheiro', 'fee' => 0, 'user_id' => $user->id]);
 
-        $response = $this->get(route('payment_method.index'), [
-            'Authorization' => 'Bearer ' . $token,
-        ]);
+        $response = $this->get(
+            uri: route('payment_method.index'),
+            headers: ['Authorization' => 'Bearer ' . $token,]
+        );
 
         $response->assertOk();
         $response->assertJsonStructure([
-            'current_page',
             'data' => [
                 [
                     'id',
@@ -69,23 +71,28 @@ class PaymentMethodTest extends TestCase
                     'updated_at',
                 ],
             ],
-            'first_page_url',
-            'from',
-            'last_page',
-            'last_page_url',
             'links' => [
-                [
-                    'url',
-                    'label',
-                    'active',
-                ],
+                'first',
+                'last',
+                'prev',
+                'next',
             ],
-            'next_page_url',
-            'path',
-            'per_page',
-            'prev_page_url',
-            'to',
-            'total',
+            'meta' => [
+                'current_page',
+                'from',
+                'last_page',
+                'links' => [
+                    [
+                        'url',
+                        'label',
+                        'active',
+                    ],
+                ],
+                'path',
+                'per_page',
+                'to',
+                'total',
+            ],
         ]);
     }
 
@@ -101,9 +108,10 @@ class PaymentMethodTest extends TestCase
 
         $paymentMethod = PaymentMethod::create(['name' => 'Dinheiro', 'fee' => 0, 'user_id' => $user->id]);
 
-        $response = $this->get(route('payment_method.show', ['payment_method' => $paymentMethod->id]), [
-            'Authorization' => 'Bearer ' . $token,
-        ]);
+        $response = $this->get(
+            uri: route('payment_method.show', ['payment_method' => $paymentMethod->id]),
+            headers: ['Authorization' => 'Bearer ' . $token,]
+        );
 
         $response->assertOk();
         $response->assertJsonStructure([
@@ -129,11 +137,11 @@ class PaymentMethodTest extends TestCase
 
         $paymentMethod = PaymentMethod::create(['name' => 'Dinheiro', 'fee' => 0, 'user_id' => $user->id]);
 
-        $response = $this->put(route('payment_method.update', ['payment_method' => $paymentMethod->id], [
-            'name' => 'Dinheiro - Updated'
-        ]), [
-            'Authorization' => 'Bearer ' . $token,
-        ]);
+        $response = $this->put(
+            uri: route('payment_method.update', ['payment_method' => $paymentMethod->id]),
+            data: ['name' => 'Dinheiro - Updated'],
+            headers: ['Authorization' => 'Bearer ' . $token,]
+        );
 
         $response->assertOk();
         $response->assertJsonStructure([
@@ -170,12 +178,14 @@ class PaymentMethodTest extends TestCase
         $token = $user->createToken('auth')->plainTextToken;
         $paymentMethod = PaymentMethod::create(['name' => 'Dinheiro', 'fee' => 0, 'user_id' => $user->id]);
         $paymentMethodId = $paymentMethod->id;
-        $response = $this->delete(route('payment_method.destroy', ['payment_method' => $paymentMethod->id]), [
-            'Authorization' => 'Bearer ' . $token,
-        ]);
+        $response = $this->delete(
+            uri: route('payment_method.destroy', ['payment_method' => $paymentMethod->id]),
+            data: [],
+            headers: ['Authorization' => 'Bearer ' . $token,]
+        );
 
         $response->assertOk();
-        
+
         $this->assertNull(PaymentMethod::find($paymentMethodId));
     }
 }
