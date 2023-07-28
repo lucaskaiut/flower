@@ -300,4 +300,34 @@ class BillTest extends TestCase
 
         $this->assertNull(Bill::find($bill['id']));
     }
+
+    public function test_guest_cant_create_bill()
+    {
+        $response = $this->post(route('bill.store'), [], ['Accept' => 'application/json']);
+        $response->assertStatus(401);
+    }
+
+    public function test_guest_cant_list_bills()
+    {
+        $response = $this->get(route('bill.index'), ['Accept' => 'application/json']);
+        $response->assertStatus(401);
+    }
+
+    public function test_guest_cant_see_a_bill()
+    {
+        $response = $this->get(route('bill.show', ['bill' => 1]), ['Accept' => 'application/json']);
+        $response->assertStatus(401);
+    }
+
+    public function test_guest_cant_update_a_bill()
+    {
+        $response = $this->put(route('bill.update', ['bill' => 1]), [], ['Accept' => 'application/json']);
+        $response->assertStatus(401);
+    }
+
+    public function test_guest_cant_delete_a_bill()
+    {
+        $response = $this->delete(route('bill.destroy', ['bill' => 1]), [], ['Accept' => 'application/json']);
+        $response->assertStatus(401);
+    }
 }
