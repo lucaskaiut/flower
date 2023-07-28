@@ -156,4 +156,34 @@ class CategoryTest extends TestCase
         $response->assertOk();
         $this->assertNull(Category::find($categoryId));
     }
+
+    public function test_guest_cant_create_bill()
+    {
+        $response = $this->post(route('bill.store'), [], ['Accept' => 'application/json']);
+        $response->assertStatus(401);
+    }
+
+    public function test_guest_cant_list_categories()
+    {
+        $response = $this->get(route('category.index'), ['Accept' => 'application/json']);
+        $response->assertStatus(401);
+    }
+
+    public function test_guest_cant_see_a_category()
+    {
+        $response = $this->get(route('category.show', ['category' => 1]), ['Accept' => 'application/json']);
+        $response->assertStatus(401);
+    }
+
+    public function test_guest_cant_update_a_category()
+    {
+        $response = $this->put(route('category.update', ['category' => 1]), [], ['Accept' => 'application/json']);
+        $response->assertStatus(401);
+    }
+
+    public function test_guest_cant_delete_a_category()
+    {
+        $response = $this->delete(route('category.destroy', ['category' => 1]), [], ['Accept' => 'application/json']);
+        $response->assertStatus(401);
+    }
 }
