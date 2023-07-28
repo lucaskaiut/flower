@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\BillStoreRequest;
 use App\Http\Requests\BillUpdateRequest;
+use App\Http\Resources\BillCollection;
 use App\Http\Resources\BillResource;
 use App\Models\Bill;
 use App\Services\BillService;
@@ -17,7 +18,8 @@ class BillController extends Controller
      */
     public function index(BillService $billService)
     {
-        return BillResource::collection($billService->paginate());
+        $additional = ['totals' => ['in' => 100, 'out' => 200, 'status' => -100]];
+        return (new BillCollection($billService->paginate()))->additional(['additional' => $additional]);
     }
 
     /**

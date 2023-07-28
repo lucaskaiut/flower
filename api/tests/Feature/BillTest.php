@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Bill;
 use App\Models\Category;
 use App\Models\User;
 use Carbon\Carbon;
@@ -136,6 +137,167 @@ class BillTest extends TestCase
                 'to',
                 'total',
             ],
+            'additional' => [
+                'totals' => [
+                    'in',
+                    'out',
+                    'status',
+                ],
+            ],
         ]);
+    }
+
+    public function test_show_a_bill()
+    {
+        $user = User::create([
+            'name' => 'Lucas Kaiut - Test Create Category',
+            'email' => 'lucas.kaiut_test_create_category@gmail.com',
+            'password' => '1815Kaiut!@'
+        ]);
+
+        $category = Category::create([
+            'name' => 'Categoria Teste',
+            'type' => 'in',
+            'user_id' => $user->id,
+        ]);
+
+        $payload = [
+            'description' => 'Conta de teste',
+            'reference_date' => Carbon::now()->format('Y-m-d'),
+            'due_at' => Carbon::now()->addMonth()->format('Y-m-d'),
+            'is_paid' => false,
+            'category_id' => $category->id,
+            'amount' => 24.97,
+        ];
+
+        $token = $user->createToken('auth')->plainTextToken;
+
+        $bill = $this->post(
+            uri: route('bill.store'), 
+            data: $payload, 
+            headers: ['Authorization' => 'Bearer ' . $token,]
+        )->json();
+
+        $response = $this->get(
+            uri: route('bill.show', ['bill' => $bill['data']['id']]), 
+            headers: ['Authorization' => 'Bearer ' . $token,]
+        );
+
+        $response->assertOk();
+        $response->assertJsonStructure([
+            'data' => [
+                'id',
+                'description',
+                'reference_date',
+                'due_at',
+                'is_paid',
+                'category_id',
+                'category',
+                'user',
+                'amount',
+                'created_at',
+                'updated_at',
+            ],
+        ]);
+    }
+
+    public function test_update_a_bill()
+    {
+        $user = User::create([
+            'name' => 'Lucas Kaiut - Test Create Category',
+            'email' => 'lucas.kaiut_test_create_category@gmail.com',
+            'password' => '1815Kaiut!@'
+        ]);
+
+        $category = Category::create([
+            'name' => 'Categoria Teste',
+            'type' => 'in',
+            'user_id' => $user->id,
+        ]);
+
+        $payload = [
+            'description' => 'Conta de teste',
+            'reference_date' => Carbon::now()->format('Y-m-d'),
+            'due_at' => Carbon::now()->addMonth()->format('Y-m-d'),
+            'is_paid' => false,
+            'category_id' => $category->id,
+            'amount' => 24.97,
+        ];
+
+        $token = $user->createToken('auth')->plainTextToken;
+
+        $bill = $this->post(
+            uri: route('bill.store'), 
+            data: $payload, 
+            headers: ['Authorization' => 'Bearer ' . $token,]
+        )->json()['data'];
+
+        $response = $this->put(
+            uri: route('bill.update', ['bill' => $bill['id']]),
+            data: ['description' => 'Conta de teste - Updated'],
+            headers: ['Authorization' => 'Bearer ' . $token,]
+        );
+
+        $response->assertOk();
+        $response->assertJsonStructure([
+            'data' => [
+                'id',
+                'description',
+                'reference_date',
+                'due_at',
+                'is_paid',
+                'category_id',
+                'category',
+                'user',
+                'amount',
+                'created_at',
+                'updated_at',
+            ],
+        ]);
+        
+        $bill = Bill::find($bill['id']);
+
+        $this->assertTrue($bill->description == 'Conta de teste - Updated');
+    }
+
+    public function test_delete_a_bill()
+    {
+        $user = User::create([
+            'name' => 'Lucas Kaiut - Test Create Category',
+            'email' => 'lucas.kaiut_test_create_category@gmail.com',
+            'password' => '1815Kaiut!@'
+        ]);
+
+        $category = Category::create([
+            'name' => 'Categoria Teste',
+            'type' => 'in',
+            'user_id' => $user->id,
+        ]);
+
+        $payload = [
+            'description' => 'Conta de teste',
+            'reference_date' => Carbon::now()->format('Y-m-d'),
+            'due_at' => Carbon::now()->addMonth()->format('Y-m-d'),
+            'is_paid' => false,
+            'category_id' => $category->id,
+            'amount' => 24.97,
+        ];
+
+        $token = $user->createToken('auth')->plainTextToken;
+
+        $bill = $this->post(
+            uri: route('bill.store'), 
+            data: $payload, 
+            headers: ['Authorization' => 'Bearer ' . $token,]
+        )->json()['data'];
+
+        $response = $this->delete(
+            uri: route('bill.destroy', ['bill' => $bill['id']]),
+            headers: ['Authorization' => 'Bearer ' . $token,]
+        );
+
+        $response->assertOk();
+
+        $this->assertNull(Bill::find($bill['id']));
     }
 }
