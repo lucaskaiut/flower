@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\PaymentMethodController;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ Route::group(['controller' => UserController::class, 'prefix' => 'user'], functi
 
 Route::group(attributes: ['middleware' => 'auth:sanctum'], routes: function () {
     Route::resource('category', CategoryController::class)->except(['create', 'edit']);
+    Route::resource('bill', BillController::class)->except(['create', 'edit']);
     Route::resource('payment_method', PaymentMethodController::class)->except(['create', 'edit']);
     Route::get('user/me', [UserController::class, 'me'])->name('user.me');
 });
