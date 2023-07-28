@@ -188,4 +188,34 @@ class PaymentMethodTest extends TestCase
 
         $this->assertNull(PaymentMethod::find($paymentMethodId));
     }
+
+    public function test_guest_cant_create_payment_method()
+    {
+        $response = $this->post(route('payment_method.store'), [], ['Accept' => 'application/json']);
+        $response->assertStatus(401);
+    }
+
+    public function test_guest_cant_list_payment_methods()
+    {
+        $response = $this->get(route('payment_method.index'), ['Accept' => 'application/json']);
+        $response->assertStatus(401);
+    }
+
+    public function test_guest_cant_see_a_payment_method()
+    {
+        $response = $this->get(route('payment_method.show', ['payment_method' => 1]), ['Accept' => 'application/json']);
+        $response->assertStatus(401);
+    }
+
+    public function test_guest_cant_update_a_payment_method()
+    {
+        $response = $this->put(route('payment_method.update', ['payment_method' => 1]), [], ['Accept' => 'application/json']);
+        $response->assertStatus(401);
+    }
+
+    public function test_guest_cant_delete_a_payment_method()
+    {
+        $response = $this->delete(route('payment_method.destroy', ['payment_method' => 1]), [], ['Accept' => 'application/json']);
+        $response->assertStatus(401);
+    }
 }
