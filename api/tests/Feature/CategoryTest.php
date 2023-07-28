@@ -157,9 +157,9 @@ class CategoryTest extends TestCase
         $this->assertNull(Category::find($categoryId));
     }
 
-    public function test_guest_cant_create_bill()
+    public function test_guest_cant_create_category()
     {
-        $response = $this->post(route('bill.store'), [], ['Accept' => 'application/json']);
+        $response = $this->post(route('category.store'), [], ['Accept' => 'application/json']);
         $response->assertStatus(401);
     }
 
