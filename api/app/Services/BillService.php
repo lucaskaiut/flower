@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
+use App\Contracts\ServiceContract;
 use App\Models\Bill;
 use App\Traits\CoreService;
 
-class BillService
+class BillService implements ServiceContract
 {
     use CoreService;
 

@@ -2,10 +2,11 @@
 
 namespace App\Services;
 
+use App\Contracts\ServiceContract;
 use App\Models\PaymentMethod;
 use App\Traits\CoreService;
 
-class PaymentMethodService
+class PaymentMethodService implements ServiceContract
 {
     use CoreService;
 

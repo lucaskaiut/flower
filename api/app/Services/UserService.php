@@ -2,12 +2,16 @@
 
 namespace App\Services;
 
+use App\Contracts\ServiceContract;
 use App\Models\User;
+use App\Traits\CoreService;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Hash;
 
-final class UserService
+final class UserService implements ServiceContract
 {
+    use CoreService;
+    
     private $model = User::class;
 
     public function register(array $data)
