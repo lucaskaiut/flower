@@ -14,6 +14,18 @@ interface ServiceContract
     public function paginate(int $perPage = 15, int $page = 1);
 
     /**
+     * @param int $id
+     * @return ?Model
+     */
+    public function show(int $id): ?Model;
+
+    /**
+     * @param int $id
+     * @return Model
+     */
+    public function findOrFail(int $id): Model;
+    
+    /**
      * @param array $data
      * @return Model
      */

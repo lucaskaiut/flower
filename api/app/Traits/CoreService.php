@@ -16,6 +16,16 @@ trait CoreService
         return $this->model::paginate($perPage);
     }
 
+    public function show(int $id): ?Model
+    {
+        return $this->model::find($id);
+    }
+
+    public function findOrFail(int $id): Model
+    {
+        return $this->model::findOrFail($id);
+    }
+
     public function store(array $data)
     {
         return $this->model::create($data);
