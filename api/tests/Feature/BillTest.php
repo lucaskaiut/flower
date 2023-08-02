@@ -77,7 +77,7 @@ class BillTest extends TestCase
         ]);
 
         $payload = [
-            'description' => 'Conta de teste',
+            'description' => 'teste',
             'reference_date' => Carbon::now()->format('Y-m-d'),
             'due_at' => Carbon::now()->addMonth()->format('Y-m-d'),
             'is_paid' => false,
@@ -94,7 +94,7 @@ class BillTest extends TestCase
         );
 
         $response = $this->get(
-            uri: route('bill.index'), 
+            uri: route('bill.index', ['description' => 'teste']), 
             headers: ['Authorization' => 'Bearer ' . $token,]
         );
 
@@ -329,5 +329,106 @@ class BillTest extends TestCase
     {
         $response = $this->delete(route('bill.destroy', ['bill' => 1]), [], ['Accept' => 'application/json']);
         $response->assertStatus(401);
+    }
+
+    public function test_filter_bills()
+    {
+        $user = User::create([
+            'name' => 'Lucas Kaiut - Test Create Category',
+            'email' => 'lucas.kaiut_test_create_category@gmail.com',
+            'password' => '1815Kaiut!@'
+        ]);
+
+        $category = Category::create([
+            'name' => 'Categoria Teste',
+            'type' => 'in',
+            'user_id' => $user->id,
+        ]);
+
+        $bills = [
+            [
+                'description' => 'Conta de teste',
+                'reference_date' => Carbon::now()->format('Y-m-d'),
+                'due_at' => Carbon::now()->addMonth()->format('Y-m-d'),
+                'is_paid' => false,
+                'category_id' => $category->id,
+                'amount' => 24.97,
+            ],
+            [
+                'description' => 'conta',
+                'reference_date' => Carbon::now()->format('Y-m-d'),
+                'due_at' => Carbon::now()->addMonth()->format('Y-m-d'),
+                'is_paid' => false,
+                'category_id' => $category->id,
+                'amount' => 24.97,
+            ]
+        ];
+
+        $token = $user->createToken('auth')->plainTextToken;
+
+        foreach ($bills as $payload) {
+            $this->post(
+                uri: route('bill.store'), 
+                data: $payload, 
+                headers: ['Authorization' => 'Bearer ' . $token,]
+            );
+        }
+        
+        $response = $this->get(
+            uri: route('bill.index', ['description' => 'teste']), 
+            headers: ['Authorization' => 'Bearer ' . $token,]
+        );
+
+        $response->assertOk();
+        $response->assertJsonStructure([
+            'data' => [
+                [
+                    'id',
+                    'description',
+                    'reference_date',
+                    'due_at',
+                    'is_paid',
+                    'category_id',
+                    'category',
+                    'user',
+                    'amount',
+                    'created_at',
+                    'updated_at',
+                ],
+            ],
+            'links' => [
+                'first',
+                'last',
+                'prev',
+                'next',
+            ],
+            'meta' => [
+                'current_page',
+                'from',
+                'last_page',
+                'links' => [
+                    [
+                        'url',
+                        'label',
+                        'active',
+                    ],
+                ],
+                'path',
+                'per_page',
+                'to',
+                'total',
+            ],
+            'additional' => [
+                'totals' => [
+                    'in',
+                    'out',
+                    'status',
+                ],
+            ],
+        ]);
+
+        $body = $response->json()['data'];
+
+        $this->assertTrue(sizeof($body) == 1);
     }
 }

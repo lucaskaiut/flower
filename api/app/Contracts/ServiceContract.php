@@ -11,7 +11,7 @@ interface ServiceContract
      * @param int $page
      * @return Model[]
      */
-    public function paginate(int $perPage = 15, int $page = 1);
+    public function paginate(int $perPage = 15, int $page = 1, array $filters = []);
 
     /**
      * @param int $id

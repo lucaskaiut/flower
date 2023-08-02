@@ -19,7 +19,7 @@ class BillController extends Controller
     public function index(BillService $billService)
     {
         $additional = ['totals' => ['in' => 100, 'out' => 200, 'status' => -100]];
-        return (new BillCollection($billService->paginate()))->additional(['additional' => $additional]);
+        return (new BillCollection($billService->paginate(filters: request()->query())))->additional(['additional' => $additional]);
     }
 
     /**
